@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link src="cart.js" crossorigin="anonymous">
+
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="cs.css">
+</head>
+<body>
+  <div class="cart-container">
+    <h2>Your Cart</h2>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">Total:</td>
+          <td id="total-price">₹0.00</td>
+        </tr>
+      </tfoot>
+    </table>
+    <button class="checkout-btn">Checkout</button>
+  </div>
+  <form name="submit-to-google-sheet">
+    <input type="text" name="item" required> <br>
+    <input type="number" name="quantity"> <br>
+    <input type="email" name="email" required>
+    <button type="submit">Send</button>
+  </form>
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxDTrEanotHSa4anu5PNM4prDTmill2T3OdPPytp5JABfXSh9LHTi0ptdDukUQHwTDy/exec'
+    const form = document.forms['submit-to-google-sheet']
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => console.log('Success!', response))
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+</body>
+</html>
